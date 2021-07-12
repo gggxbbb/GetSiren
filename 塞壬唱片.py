@@ -130,6 +130,10 @@ for i in songs.values():
         with open(lrc_path, 'w', encoding='utf8') as f:
             f.write(req_lrc.text)
             f.close()
+        if global_mp3_path is not None:
+            audiofile = eyed3.load(global_mp3_path)
+            audiofile.tag.lyrics.set(req_lrc.text)
+            audiofile.tag.save(version=eyed3.id3.ID3_V2_3)
         print('*', end=' ')
     # mv
     if sou_song['mvUrl'] != None:
